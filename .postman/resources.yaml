@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: ""
+
+localResources:
+  collections:
+    - ..\Examen-Wallet-QA.postman_collection.json
+  environments:
+    - ..\walllet-test.postman_environment.json

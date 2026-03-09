@@ -1,0 +1,513 @@
+{
+  "info": {
+    "_postman_id": "d0ad2a3f-77c5-4943-8818-dfbaf08691ae",
+    "name": "Examen-Wallet-QA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52874832"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Registrar Usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code es 201 (Creado)\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "if (jsonData.user && jsonData.user.id) {\r",
+                  "    pm.environment.set(\"id_emisor\", jsonData.user.id);\r",
+                  "    console.log(\"ID del Emisor guardado: \" + jsonData.user.id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"phone\": \"09123456711\",\r\n  \"fullName\": \"EmisorQA\",\r\n  \"email\": \"emisor@qalab.com\",\r\n  \"pin\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlAuth}}/auth/v1/register",
+              "host": [
+                "{{baseUrlAuth}}"
+              ],
+              "path": [
+                "auth",
+                "v1",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar Usuario Receptor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code es 201 (Creado)\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "if (jsonData.user && jsonData.user.id) {\r",
+                  "    pm.environment.set(\"id_receptor\", jsonData.user.id);\r",
+                  "    console.log(\"ID del Emisor guardado: \" + jsonData.user.id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"phone\": \"0988888888\",\r\n  \"fullName\": \"ReceptorQA\",\r\n  \"email\": \"receptor1@qalab.com\",\r\n  \"pin\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlAuth}}/auth/v1/register",
+              "host": [
+                "{{baseUrlAuth}}"
+              ],
+              "path": [
+                "auth",
+                "v1",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login Emisor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Login exitoso (200 OK)\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "if (jsonData.token) {\r",
+                  "    pm.environment.set(\"token_emisor\", jsonData.token);\r",
+                  "    console.log(\"Token Emisor guardado correctamente.\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"phone\": \"09123456711\",\r\n  \"pin\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlAuth}}/auth/v1/login",
+              "host": [
+                "{{baseUrlAuth}}"
+              ],
+              "path": [
+                "auth",
+                "v1",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login Receptor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Login exitoso (200 OK)\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "if (jsonData.token) {\r",
+                  "    pm.environment.set(\"token_receptor\", jsonData.token);\r",
+                  "    console.log(\"Token Emisor guardado correctamente.\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"phone\": \"0988888888\",\r\n  \"pin\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlAuth}}/auth/v1/login",
+              "host": [
+                "{{baseUrlAuth}}"
+              ],
+              "path": [
+                "auth",
+                "v1",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Wallet",
+      "item": [
+        {
+          "name": "Recargar Balance",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code es 200 (Recarga Exitosa)\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contiene la propiedad 'success' y es true\", function () {\r",
+                  "    pm.expect(jsonData).to.have.property('success');\r",
+                  "    pm.expect(jsonData.success).to.be.true;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_emisor}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 500\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlWallet}}/wallet/v1/deposit",
+              "host": [
+                "{{baseUrlWallet}}"
+              ],
+              "path": [
+                "wallet",
+                "v1",
+                "deposit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consulta Balance",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_emisor}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrlWallet}}/wallet/v1/balance",
+              "host": [
+                "{{baseUrlWallet}}"
+              ],
+              "path": [
+                "wallet",
+                "v1",
+                "balance"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Historial del Receptor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlWallet}}/wallet/v1/transactions",
+              "host": [
+                "{{baseUrlWallet}}"
+              ],
+              "path": [
+                "wallet",
+                "v1",
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transf",
+      "item": [
+        {
+          "name": "Transferencia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Validar código de respuesta de la transferencia\", function () {\r",
+                  "    // Imprimimos en consola para documentar el hallazgo\r",
+                  "    console.log(\"Código HTTP recibido: \" + pm.response.code);\r",
+                  "    if(pm.response.code === 400) {\r",
+                  "        console.log(\"Error de negocio devuelto: \" + jsonData.code); // Esperamos WALL_001\r",
+                  "    }\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_emisor}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"recipientId\": \"{{id_receptor}}\",\r\n  \"amount\": 950,\r\n  \"description\": \"Pago Examen QA\",\r\n  \"categoryId\": \"cat_food_1\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlTx}}/transaction/v1/transfer",
+              "host": [
+                "{{baseUrlTx}}"
+              ],
+              "path": [
+                "transaction",
+                "v1",
+                "transfer"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Ajuste de Saldo Admin",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-channel",
+                "value": "{{channel}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"userId\": \"{{id_emisor}}\",\r\n  \"amount\": 1000,\r\n  \"type\": \"CREDIT\",\r\n  \"description\": \"Abono por soporte QA\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlAdmin}}/admin/v1/balance",
+              "host": [
+                "{{baseUrlAdmin}}"
+              ],
+              "path": [
+                "admin",
+                "v1",
+                "balance"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
